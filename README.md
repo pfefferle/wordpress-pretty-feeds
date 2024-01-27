@@ -1,4 +1,4 @@
-# Styles your WordPress' Feeds
+# Your WordPress' Feeds with Style!
 
 Styles an RSS/Atom feed, making it friendly for humans viewers, and adds a link to aboutfeeds.com for new user onboarding. See it in action:
 

@@ -46,3 +46,37 @@ function feed_content_type( $content_type, $type ) {
 	return $content_type;
 }
 add_filter( 'feed_content_type', __NAMESPACE__ . '\feed_content_type', 99, 2 );
+
+/**
+ * Display a nice welcoming message to folks reading posts via RSS.
+ *
+ * Kudos Kev Quirk for the idea!
+ * Even more kudos to Jeremy Herve for the original code!
+ *
+ * @see https://herve.bzh/thanking-my-rss-readers/
+ *
+ * @param string $content The current post content.
+ *
+ * @return string
+ */
+function welcome_rss_readers( $content ) {
+	$welcome_messages = array(
+		'Thanks for reading this post via RSS. RSS is great, and you’re great for using it. ♥️',
+		'Congratulations on being an RSS reader! You are part of an elite group of people who know how to stay updated in style.',
+		'Hey there, RSS reader! You’re one of a special few, choosing this old-school yet awesome way of staying informed. Kudos!',
+		'You are a true RSS aficionado! While others are drowning in social media noise, you enjoy the simplicity and control of RSS. Congrats!',
+		'RSS readers like you are the unsung heroes of the internet. Keep up the good work!',
+		'You are a master of efficiency! By using RSS, you save time and avoid distractions. 👏',
+		'RSS readers like you are the secret sauce of the internet. Keep rocking and staying informed!',
+		'Hey there, RSS reader! You’re cool. Keep being awesome! 😎',
+	);
+
+	$welcome_message = $welcome_messages[ wp_rand( 0, count( $welcome_messages ) - 1 ) ];
+
+	return sprintf(
+		'%1$s<p>%2$s</p>',
+		$content,
+		$welcome_message
+	);
+}
+add_filter( 'the_content_feed', __NAMESPACE__ . '\welcome_rss_readers' );

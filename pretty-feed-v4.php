@@ -1,51 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?php echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?>' . "\n"; ?>
 <!--
 
 # Pretty Feed
 
 Styles an RSS/Atom feed, making it friendly for humans viewers, and adds a link
-to aboutfeeds.com for new user onboarding. See it in action:
+to aboutfeeds.com for new user onboarding.
 
-   https://interconnected.org/home/feed
-
-
-## How to use
-
-1. Download this XML stylesheet from the following URL and host it on your own
-   domain (this is a limitation of XSL in browsers):
-
-   https://github.com/genmon/aboutfeeds/blob/main/tools/pretty-feed-v3.xsl
-
-2. Include the XSL at the top of the RSS/Atom feed, like:
-
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="/PATH-TO-YOUR-STYLES/pretty-feed-v3.xsl" type="text/xsl"?>
-```
-
-3. Serve the feed with the following HTTP headers:
-
-```
-Content-Type: application/xml; charset=utf-8  # not application/rss+xml
-x-content-type-options: nosniff
-```
-
-(These headers are required to style feeds for users with Safari on iOS/Mac.)
-
-
-
-## Limitations
-
-- Styling the feed *prevents* the browser from automatically opening a
-  newsreader application. This is a trade off, but it's a benefit to new users
-  who won't have a newsreader installed, and they are saved from seeing or
-  downloaded obscure XML content. For existing newsreader users, they will know
-  to copy-and-paste the feed URL, and they get the benefit of an in-browser feed
-  preview.
-- Feed styling, for all browsers, is only available to site owners who control
-  their own platform. The need to add both XML and HTTP headers makes this a
-  limited solution.
-
+This file is served dynamically by the Pretty Feeds WordPress plugin so that its
+labels can be translated. See pretty-feeds.php.
 
 ## Credits
 
@@ -63,8 +25,6 @@ This specific is a modified version of Dave Rupert's feed:
 
 ## Feedback
 
-This file is in BETA. Please test and contribute to the discussion:
-
    https://github.com/pfefferle/wordpress-pretty-feeds/issues
 
 -->
@@ -75,7 +35,7 @@ This file is in BETA. Please test and contribute to the discussion:
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-				<title><xsl:value-of select="/rss/channel/title"/> Web Feed</title>
+				<title><xsl:value-of select="/rss/channel/title"/> <?php esc_html_e( 'Web Feed', 'prettyfeeds' ); ?></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 				<style type="text/css">
@@ -121,22 +81,33 @@ This file is in BETA. Please test and contribute to the discussion:
 				<nav class="intro">
 					<div class="container">
 						<div>
-							<p><strong>Yahaha, you found me!</strong> This is my RSS feed. You can <strong>Subscribe</strong> by copy-pasting the URL into your RSS feed reader or by clicking <a>
-									<xsl:attribute name="href">
-										<xsl:value-of select="concat('feed:', //atom:link[@rel='self']/@href)"/>
-									</xsl:attribute>
-									here</a>...
+							<p>
+								<?php
+								printf(
+									/* translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag. */
+									__( '<strong>Yahaha, you found me!</strong> This is my RSS feed. You can <strong>Subscribe</strong> by copy-pasting the URL into your RSS feed reader or by clicking %1$shere%2$s...', 'prettyfeeds' ),
+									'<a href="{concat(\'feed:\', //atom:link[@rel=\'self\']/@href)}">',
+									'</a>'
+								);
+								?>
 							</p>
 							<p><small>
-								...or subscribe via
+								<?php esc_html_e( '...or subscribe via', 'prettyfeeds' ); ?>
 								<input type="button" onclick="subtome()" value="SubToMe" />
 							</small></p>
 							<p><small>
-								Visit <a href="https://aboutfeeds.com">About Feeds</a> to get started with newsreaders and subscribing. It’s free.
+								<?php
+								printf(
+									/* translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag. */
+									esc_html__( 'Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. It’s free.', 'prettyfeeds' ),
+									'<a href="https://aboutfeeds.com">',
+									'</a>'
+								);
+								?>
 							</small></p>
 						</div>
 						<svg xmlns="http://www.w3.org/2000/svg" id="RSSicon" viewBox="0 0 8 8" width="256" height="256">
-							<title>RSS feed icon</title>
+							<title><?php esc_html_e( 'RSS feed icon', 'prettyfeeds' ); ?></title>
 							<style type="text/css">
 								.button {stroke: none; fill: orange;}
 								.symbol {stroke: none; fill: white;}
@@ -173,7 +144,7 @@ This file is in BETA. Please test and contribute to the discussion:
 							<xsl:attribute name="href">
 								<xsl:value-of select="/rss/channel/link"/>
 							</xsl:attribute>
-							Visit Website &#x2192;
+							<?php esc_html_e( 'Visit Website', 'prettyfeeds' ); ?> &#x2192;
 							</a>
 						</xsl:if>
 
@@ -200,14 +171,14 @@ This file is in BETA. Please test and contribute to the discussion:
 							<xsl:attribute name="href">
 								<xsl:value-of select="/atom:feed/atom:link[@rel='alternate']/@href"/>
 							</xsl:attribute>
-							Visit Website &#x2192;
+							<?php esc_html_e( 'Visit Website', 'prettyfeeds' ); ?> &#x2192;
 							</a>
 						</header>
 						</xsl:if>
 					</header>
 
 					<section class="recent">
-						<h2>Recent Items</h2>
+						<h2><?php esc_html_e( 'Recent Items', 'prettyfeeds' ); ?></h2>
 
 						<!-- RSS -->
 						<xsl:for-each select="/rss/channel/item">
@@ -221,7 +192,7 @@ This file is in BETA. Please test and contribute to the discussion:
 							</a>
 							</h3>
 							<small class="meta">
-							Published: <xsl:value-of select="pubDate" />
+							<?php esc_html_e( 'Published:', 'prettyfeeds' ); ?> <xsl:value-of select="pubDate" />
 							</small>
 						</div>
 						</xsl:for-each>
@@ -238,7 +209,7 @@ This file is in BETA. Please test and contribute to the discussion:
 							</a>
 							</h3>
 							<small class="meta">
-							Published: <xsl:value-of select="atom:published" />
+							<?php esc_html_e( 'Published:', 'prettyfeeds' ); ?> <xsl:value-of select="atom:published" />
 							</small>
 						</div>
 						</xsl:for-each>

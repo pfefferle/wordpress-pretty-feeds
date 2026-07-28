@@ -80,9 +80,12 @@ function render_stylesheet() {
 		return;
 	}
 
-	header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ) );
+	header( 'Content-Type: text/xml; charset=' . get_bloginfo( 'charset' ) );
 	// Required to style feeds for users with Safari on iOS/Mac.
 	header( 'X-Content-Type-Options: nosniff' );
+	// Cache briefly to avoid re-rendering on every feed view, but keep it
+	// revalidatable so translation, markup or charset changes are picked up.
+	header( 'Cache-Control: max-age=3600' );
 
 	require plugin_dir_path( __FILE__ ) . 'pretty-feed-v4.php';
 

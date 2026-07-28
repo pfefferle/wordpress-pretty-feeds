@@ -1,4 +1,4 @@
-<?php echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?>' . "\n"; ?>
+<?php echo '<?xml version="1.0" encoding="' . esc_attr( get_bloginfo( 'charset' ) ) . '"?>' . "\n"; ?>
 <!--
 
 # Pretty Feed
@@ -85,16 +85,12 @@ This specific is a modified version of Dave Rupert's feed:
 								<?php
 								printf(
 									/* translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag. */
-									__( '<strong>Yahaha, you found me!</strong> This is my RSS feed. You can <strong>Subscribe</strong> by copy-pasting the URL into your RSS feed reader or by clicking %1$shere%2$s...', 'prettyfeeds' ),
+									__( '<strong>Look at you, following along the old-school way.</strong> Subscribe by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s...', 'prettyfeeds' ),
 									'<a href="{concat(\'feed:\', //atom:link[@rel=\'self\']/@href)}">',
 									'</a>'
 								);
 								?>
 							</p>
-							<p><small>
-								<?php esc_html_e( '...or subscribe via', 'prettyfeeds' ); ?>
-								<input type="button" onclick="subtome()" value="SubToMe" />
-							</small></p>
 							<p><small>
 								<?php
 								printf(
@@ -215,11 +211,6 @@ This specific is a modified version of Dave Rupert's feed:
 						</xsl:for-each>
 					</section>
 				</div>
-				<script>
-					function subtome() {
-						(function(){var z=document.createElement('script');z.src='https://www.subtome.com/load.js';document.body.appendChild(z);})()
-					}
-				</script>
 			</body>
 		</html>
 	</xsl:template>

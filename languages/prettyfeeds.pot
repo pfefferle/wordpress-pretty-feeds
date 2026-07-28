@@ -46,11 +46,7 @@ msgstr ""
 #. translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag.
 #: pretty-feed-v4.php:88
 #, php-format
-msgid "<strong>Yahaha, you found me!</strong> This is my RSS feed. You can <strong>Subscribe</strong> by copy-pasting the URL into your RSS feed reader or by clicking %1$shere%2$s..."
-msgstr ""
-
-#: pretty-feed-v4.php:95
-msgid "...or subscribe via"
+msgid "<strong>Look at you, following along the old-school way.</strong> Subscribe by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s..."
 msgstr ""
 
 #. translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag.

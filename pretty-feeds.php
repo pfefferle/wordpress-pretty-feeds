@@ -137,7 +137,7 @@ function welcome_rss_readers( $content ) {
 	$welcome_message = $welcome_messages[ wp_rand( 0, count( $welcome_messages ) - 1 ) ];
 
 	return sprintf(
-		'%1$s<p>%2$s</p>',
+		'%1$s<hr /><p>%2$s</p>',
 		$content,
 		$welcome_message
 	);

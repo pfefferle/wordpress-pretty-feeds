@@ -39,8 +39,8 @@ This specific is a modified version of Dave Rupert's feed:
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 				<style type="text/css">
-					:root { color-scheme: light dark; --accent: #2271b1; --intro: #fff5b1; --muted: #676767; }
-					@media (prefers-color-scheme: dark) { :root { --accent: #72aee6; --intro: #1f1d0f; --muted: #a7aaad; } }
+					:root { color-scheme: light dark; --accent: #9a5b00; --intro: #fff5b1; --muted: #676767; }
+					@media (prefers-color-scheme: dark) { :root { --accent: #f0b429; --intro: #232323; --muted: #a7aaad; } }
 					* { box-sizing: border-box; }
 					svg { max-width: 100%; }
 					a { color: var(--accent); }

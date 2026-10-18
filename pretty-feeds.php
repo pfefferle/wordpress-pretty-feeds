@@ -23,7 +23,7 @@ namespace Pretty_Feeds;
  *
  * @var string
  */
-const STYLESHEET_VERSION = '9';
+const STYLESHEET_VERSION = '10';
 
 /**
  * Load the plugin translations.

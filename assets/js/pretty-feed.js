@@ -138,8 +138,8 @@
 		const image = webUrl( info.image );
 
 		const style = `
-			:root { color-scheme: light dark; --accent: #9a5b00; --intro: #fff5b1; --muted: #676767; }
-			@media (prefers-color-scheme: dark) { :root { --accent: #f0b429; --intro: #232323; --muted: #a7aaad; } }
+			:root { color-scheme: light dark; --accent: #9a5b00; --intro: rgb(255 214 0 / 30%); --muted: #676767; }
+			@media (prefers-color-scheme: dark) { :root { --accent: #f0b429; --intro: rgb(255 255 255 / 8%); --muted: #a7aaad; } }
 			* { box-sizing: border-box; }
 			svg { max-width: 100%; }
 			a { color: var(--accent); }

@@ -39,10 +39,11 @@ This specific is a modified version of Dave Rupert's feed:
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 				<style type="text/css">
-					:root { color-scheme: light dark; --intro: #fff5b1; --muted: #676767; }
-					@media (prefers-color-scheme: dark) { :root { --intro: #1f1d0f; --muted: #a7aaad; } }
+					:root { color-scheme: light dark; --accent: #2271b1; --intro: #fff5b1; --muted: #676767; }
+					@media (prefers-color-scheme: dark) { :root { --accent: #72aee6; --intro: #1f1d0f; --muted: #a7aaad; } }
 					* { box-sizing: border-box; }
 					svg { max-width: 100%; }
+					a { color: var(--accent); }
 					body { --gap: 5vw; margin: 0; font-family: system-ui; line-height: 1.7; }
 					h1,h2,h3 { margin-block-start: 0; margin-block-end: 0; }
 					.pb-5 { padding-bottom: calc(var(--gap) / 2); }

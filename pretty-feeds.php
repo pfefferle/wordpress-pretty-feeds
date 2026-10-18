@@ -23,7 +23,7 @@ namespace Pretty_Feeds;
  *
  * @var string
  */
-const STYLESHEET_VERSION = '4';
+const STYLESHEET_VERSION = '7';
 
 /**
  * Load the plugin translations.
@@ -65,6 +65,49 @@ function feed_stylesheet( $feed ) {
 	);
 }
 add_action( 'rss_tag_pre', __NAMESPACE__ . '\feed_stylesheet' );
+
+/**
+ * Include the script that shows the feed in browsers without XSLT.
+ *
+ * Browsers with XSLT apply the stylesheet and do not run the script. The
+ * labels are translated here, like in the stylesheet, and passed to the
+ * script in a JSON script element.
+ *
+ * @return void
+ */
+function feed_script() {
+	$l10n = array(
+		'webFeed'      => __( 'Web Feed', 'prettyfeeds' ),
+		'subscribe'    => sprintf(
+			/* translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag. */
+			__( '<strong>Look at you, following along the old-school way.</strong> Subscribe by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s...', 'prettyfeeds' ),
+			'<a class="subscribe">',
+			'</a>'
+		),
+		'aboutFeeds'   => sprintf(
+			/* translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag. */
+			esc_html__( 'Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. It’s free.', 'prettyfeeds' ),
+			'<a href="https://aboutfeeds.com">',
+			'</a>'
+		),
+		'icon'         => __( 'RSS feed icon', 'prettyfeeds' ),
+		'visitWebsite' => __( 'Visit Website', 'prettyfeeds' ),
+		'recentItems'  => __( 'Recent Items', 'prettyfeeds' ),
+		'published'    => __( 'Published:', 'prettyfeeds' ),
+	);
+
+	printf(
+		"\t" . '<script xmlns="http://www.w3.org/1999/xhtml" type="application/json" id="pretty-feed-l10n">%s</script>' . "\n",
+		htmlspecialchars( wp_json_encode( $l10n ), ENT_XML1 | ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped for XML.
+	);
+
+	printf(
+		"\t" . '<script xmlns="http://www.w3.org/1999/xhtml" src="%s" defer=""/>' . "\n", // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- A feed has no wp_head().
+		esc_url( add_query_arg( 'ver', STYLESHEET_VERSION, plugins_url( 'assets/js/pretty-feed.js', __FILE__ ) ) )
+	);
+}
+add_action( 'rss2_head', __NAMESPACE__ . '\feed_script' );
+add_action( 'atom_head', __NAMESPACE__ . '\feed_script' );
 
 /**
  * Serve the feed stylesheet.

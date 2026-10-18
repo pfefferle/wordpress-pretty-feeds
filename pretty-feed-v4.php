@@ -39,12 +39,14 @@ This specific is a modified version of Dave Rupert's feed:
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 				<style type="text/css">
+					:root { color-scheme: light dark; --intro: #fff5b1; --muted: #676767; }
+					@media (prefers-color-scheme: dark) { :root { --intro: #1f1d0f; --muted: #a7aaad; } }
 					* { box-sizing: border-box; }
 					svg { max-width: 100%; }
 					body { --gap: 5vw; margin: 0; font-family: system-ui; line-height: 1.7; }
 					h1,h2,h3 { margin-block-start: 0; margin-block-end: 0; }
 					.pb-5 { padding-bottom: calc(var(--gap) / 2); }
-					.meta { color: #676767; }
+					.meta { color: var(--muted); }
 					.container {
 						display: grid;
 						gap: var(--gap);
@@ -53,7 +55,7 @@ This specific is a modified version of Dave Rupert's feed:
 						margin: auto;
 					}
 					.intro {
-						background-color: #fff5b1;
+						background-color: var(--intro);
 						margin-block-end: var(--gap);
 						padding-block: calc(var(--gap) / 2);
 					}
@@ -68,6 +70,7 @@ This specific is a modified version of Dave Rupert's feed:
 						align-items: center;
 						}
 					}
+					.intro svg { width: 5rem; height: auto; justify-self: end; }
 					.recent {
 						padding-block-end: var(--gap);
 					}

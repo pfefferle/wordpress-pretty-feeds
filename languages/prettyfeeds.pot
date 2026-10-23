@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pretty Feeds 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-pretty-feeds\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pretty-feeds\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-06T09:29:56+00:00\n"
+"POT-Creation-Date: 2026-10-23T07:39:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: prettyfeeds\n"
@@ -39,68 +39,66 @@ msgstr ""
 msgid "https://notiz.blog/"
 msgstr ""
 
-#: pretty-feed-v4.php:38
+#: pretty-feeds.php:154
+msgid "Thanks for reading this post via RSS. RSS is great, and you’re great for using it. ♥️"
+msgstr ""
+
+#: pretty-feeds.php:155
+msgid "Congratulations on being an RSS reader! You are part of an elite group of people who know how to stay updated in style."
+msgstr ""
+
+#: pretty-feeds.php:156
+msgid "Hey there, RSS reader! You’re one of a special few, choosing this old-school yet awesome way of staying informed. Kudos!"
+msgstr ""
+
+#: pretty-feeds.php:157
+msgid "You are a true RSS aficionado! While others are drowning in social media noise, you enjoy the simplicity and control of RSS. Congrats!"
+msgstr ""
+
+#: pretty-feeds.php:158
+msgid "RSS readers like you are the unsung heroes of the internet. Keep up the good work!"
+msgstr ""
+
+#: pretty-feeds.php:159
+msgid "You are a master of efficiency! By using RSS, you save time and avoid distractions. 👏"
+msgstr ""
+
+#: pretty-feeds.php:160
+msgid "RSS readers like you are the secret sauce of the internet. Keep rocking and staying informed!"
+msgstr ""
+
+#: pretty-feeds.php:161
+msgid "Hey there, RSS reader! You’re cool. Keep being awesome! 😎"
+msgstr ""
+
+#: assets/js/pretty-feed.js:213
+msgid "RSS feed icon"
+msgstr ""
+
+#: assets/js/pretty-feed.js:221
 msgid "Web Feed"
 msgstr ""
 
 #. translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag.
-#: pretty-feed-v4.php:88
-#, php-format
+#: assets/js/pretty-feed.js:243
+#, js-format
 msgid "<strong>Look at you, following along the old-school way.</strong> Subscribe by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s..."
 msgstr ""
 
 #. translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag.
-#: pretty-feed-v4.php:102
-#, php-format
+#: assets/js/pretty-feed.js:258
+#, js-format
 msgid "Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. It’s free."
 msgstr ""
 
-#: pretty-feed-v4.php:110
-msgid "RSS feed icon"
-msgstr ""
-
-#: pretty-feed-v4.php:147
-#: pretty-feed-v4.php:174
+#: assets/js/pretty-feed.js:278
 msgid "Visit Website"
 msgstr ""
 
-#: pretty-feed-v4.php:181
+#: assets/js/pretty-feed.js:283
 msgid "Recent Items"
 msgstr ""
 
-#: pretty-feed-v4.php:195
-#: pretty-feed-v4.php:212
+#: assets/js/pretty-feed.js:289
 msgid "Published:"
-msgstr ""
-
-#: pretty-feeds.php:124
-msgid "Thanks for reading this post via RSS. RSS is great, and you’re great for using it. ♥️"
-msgstr ""
-
-#: pretty-feeds.php:125
-msgid "Congratulations on being an RSS reader! You are part of an elite group of people who know how to stay updated in style."
-msgstr ""
-
-#: pretty-feeds.php:126
-msgid "Hey there, RSS reader! You’re one of a special few, choosing this old-school yet awesome way of staying informed. Kudos!"
-msgstr ""
-
-#: pretty-feeds.php:127
-msgid "You are a true RSS aficionado! While others are drowning in social media noise, you enjoy the simplicity and control of RSS. Congrats!"
-msgstr ""
-
-#: pretty-feeds.php:128
-msgid "RSS readers like you are the unsung heroes of the internet. Keep up the good work!"
-msgstr ""
-
-#: pretty-feeds.php:129
-msgid "You are a master of efficiency! By using RSS, you save time and avoid distractions. 👏"
-msgstr ""
-
-#: pretty-feeds.php:130
-msgid "RSS readers like you are the secret sauce of the internet. Keep rocking and staying informed!"
-msgstr ""
-
-#: pretty-feeds.php:131
-msgid "Hey there, RSS reader! You’re cool. Keep being awesome! 😎"
 msgstr ""

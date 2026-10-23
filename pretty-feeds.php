@@ -15,15 +15,18 @@
 namespace Pretty_Feeds;
 
 /**
- * The stylesheet "version".
- *
- * Used as the value of the stylesheet query argument so that browsers re-fetch
- * the stylesheet when the plugin (and therefore the markup or translations)
- * changes.
+ * The plugin version.
  *
  * @var string
  */
-const STYLESHEET_VERSION = '11';
+const VERSION = '1.0.0';
+
+/**
+ * The handle of the script that shows the feed in the browser.
+ *
+ * @var string
+ */
+const SCRIPT = 'pretty-feed';
 
 /**
  * Load the plugin translations.
@@ -36,108 +39,89 @@ function load_textdomain() {
 add_action( 'init', __NAMESPACE__ . '\load_textdomain' );
 
 /**
- * Return the URL the feed stylesheet is served from.
+ * Include the script that shows the feed as a page in the browser.
  *
- * The stylesheet is served through WordPress (instead of as a static file) so
- * that its labels can be translated. See {@see render_stylesheet()}.
- *
- * @return string The stylesheet URL.
- */
-function stylesheet_url() {
-	return add_query_arg( 'pretty-feed-stylesheet', STYLESHEET_VERSION, home_url( '/' ) );
-}
-
-/**
- * Include the XSL stylesheet processing instruction in the feed.
- *
- * @param string $feed The feed type.
- *
- * @return void
- */
-function feed_stylesheet( $feed ) {
-	if ( ! in_array( $feed, array( 'rss2', 'atom' ), true ) ) {
-		return;
-	}
-
-	printf(
-		"\n" . '<?xml-stylesheet href="%s" type="text/xsl" media="screen" ?>' . "\n",
-		esc_url( stylesheet_url() )
-	);
-}
-add_action( 'rss_tag_pre', __NAMESPACE__ . '\feed_stylesheet' );
-
-/**
- * Include the script that shows the feed in browsers without XSLT.
- *
- * Browsers with XSLT apply the stylesheet and do not run the script. The
- * labels are translated here, like in the stylesheet, and passed to the
- * script in a JSON script element.
+ * Translations are loaded the WordPress way: the JSON of the script is
+ * passed in a script element with the id "pretty-feed-translations".
  *
  * @return void
  */
 function feed_script() {
-	$l10n = array(
-		'webFeed'      => __( 'Web Feed', 'prettyfeeds' ),
-		'subscribe'    => sprintf(
-			/* translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag. */
-			__( '<strong>Look at you, following along the old-school way.</strong> Subscribe by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s...', 'prettyfeeds' ),
-			'<a class="subscribe">',
-			'</a>'
-		),
-		'aboutFeeds'   => sprintf(
-			/* translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag. */
-			esc_html__( 'Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. It’s free.', 'prettyfeeds' ),
-			'<a href="https://aboutfeeds.com">',
-			'</a>'
-		),
-		'icon'         => __( 'RSS feed icon', 'prettyfeeds' ),
-		'visitWebsite' => __( 'Visit Website', 'prettyfeeds' ),
-		'recentItems'  => __( 'Recent Items', 'prettyfeeds' ),
-		'published'    => __( 'Published:', 'prettyfeeds' ),
-	);
+	$urls         = get_script_urls();
+	$translations = load_script_textdomain( SCRIPT, 'prettyfeeds', plugin_dir_path( __FILE__ ) . 'languages' );
 
-	printf(
-		"\t" . '<script xmlns="http://www.w3.org/1999/xhtml" type="application/json" id="pretty-feed-l10n">%s</script>' . "\n",
-		htmlspecialchars( wp_json_encode( $l10n ), ENT_XML1 | ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped for XML.
-	);
+	if ( $translations ) {
+		printf(
+			"\t" . '<script xmlns="http://www.w3.org/1999/xhtml" type="application/json" id="pretty-feed-translations">%s</script>' . "\n",
+			htmlspecialchars( $translations, ENT_XML1 | ENT_NOQUOTES | ENT_SUBSTITUTE, 'UTF-8' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped for XML.
+		);
+	}
 
-	printf(
-		"\t" . '<script xmlns="http://www.w3.org/1999/xhtml" src="%s" defer=""/>' . "\n", // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- A feed has no wp_head().
-		esc_url( add_query_arg( 'ver', STYLESHEET_VERSION, plugins_url( 'assets/js/pretty-feed.js', __FILE__ ) ) )
-	);
+	foreach ( $urls as $src ) {
+		printf(
+			"\t" . '<script xmlns="http://www.w3.org/1999/xhtml" src="%s" defer=""/>' . "\n", // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- A feed has no wp_head().
+			htmlspecialchars( $src, ENT_XML1 | ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped for XML.
+		);
+	}
 }
 add_action( 'rss2_head', __NAMESPACE__ . '\feed_script' );
 add_action( 'atom_head', __NAMESPACE__ . '\feed_script' );
 
 /**
- * Serve the feed stylesheet.
+ * The URLs of the script that shows the feed in the browser and of its
+ * dependencies, in load order.
  *
- * The stylesheet cannot be a static `.xsl` file because its labels have to be
- * run through gettext to be translatable. It is therefore rendered by PHP and
- * served from the URL returned by {@see stylesheet_url()}.
+ * The script is registered like any other, with wp-i18n for the
+ * translations. A feed has no wp_head(), so the URLs are built from the
+ * registry like WP_Scripts does.
  *
- * @return void
+ * @return string[] The script URLs.
  */
-function render_stylesheet() {
-	if ( ! isset( $_GET['pretty-feed-stylesheet'] ) ) {
-		return;
+function get_script_urls() {
+	$scripts = wp_scripts();
+
+	if ( ! $scripts->query( SCRIPT ) ) {
+		wp_register_script(
+			SCRIPT,
+			plugins_url( 'assets/js/pretty-feed.js', __FILE__ ),
+			array( 'wp-i18n' ),
+			VERSION,
+			array( 'strategy' => 'defer' )
+		);
 	}
 
-	header( 'Content-Type: text/xml; charset=' . get_bloginfo( 'charset' ) );
-	// Required to style feeds for users with Safari on iOS/Mac.
-	header( 'X-Content-Type-Options: nosniff' );
-	// Cache briefly to avoid re-rendering on every feed view, but keep it
-	// revalidatable so translation, markup or charset changes are picked up.
-	header( 'Cache-Control: max-age=3600' );
+	$scripts->all_deps( SCRIPT );
+	$handles        = $scripts->to_do;
+	$scripts->to_do = array();
+	$urls           = array();
 
-	require plugin_dir_path( __FILE__ ) . 'pretty-feed-v4.php';
+	foreach ( $handles as $handle ) {
+		$script = $scripts->registered[ $handle ];
 
-	exit;
+		// Aliases like "jquery" have no source of their own.
+		if ( ! $script->src ) {
+			continue;
+		}
+
+		$src = $script->src;
+
+		if ( ! preg_match( '|^(https?:)?//|', $src ) && ! ( $scripts->content_url && 0 === strpos( $src, $scripts->content_url ) ) ) {
+			$src = $scripts->base_url . $src;
+		}
+
+		if ( null !== $script->ver ) {
+			$src = add_query_arg( 'ver', $script->ver ? $script->ver : $scripts->default_version, $src );
+		}
+
+		/** This filter is documented in wp-includes/class-wp-scripts.php */
+		$urls[] = (string) apply_filters( 'script_loader_src', $src, $handle );
+	}
+
+	return $urls;
 }
-add_action( 'parse_request', __NAMESPACE__ . '\render_stylesheet' );
 
 /**
- * Change Content-Type for feeds to enable XSL-Transformation
+ * Change the Content-Type of feeds, so that browsers show them and run the script.
  *
  * @param string $content_type The current Conten-Type
  * @param string $type         The Feed-Type

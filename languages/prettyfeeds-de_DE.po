@@ -1,8 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pretty Feeds 1.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-pretty-"
-"feeds\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pretty-feeds\n"
+"POT-Creation-Date: 2026-10-23T07:39:08+00:00\n"
+"PO-Revision-Date: 2026-07-06T10:30:00+00:00\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -10,58 +11,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"PO-Revision-Date: 2026-07-06T10:30:00+00:00\n"
 "X-Generator: Claude\n"
 "X-Domain: prettyfeeds\n"
 
-msgid ""
-"<strong>Look at you, following along the old-school way.</strong> Subscribe "
-"by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s..."
+#. Plugin Name of the plugin
+#: pretty-feeds.php
+msgid "Pretty Feeds"
 msgstr ""
-"<strong>Sieh dich an, ganz old-school unterwegs.</strong> Abonniere den "
-"Feed, indem du die URL in deinen Feed-Reader kopierst oder %1$shier%2$s "
-"klickst ..."
 
-msgid ""
-"Congratulations on being an RSS reader! You are part of an elite group of "
-"people who know how to stay updated in style."
+#. Plugin URI of the plugin
+#: pretty-feeds.php
+msgid "https://github.com/pfefferle/wordpress-pretty-feeds"
 msgstr ""
-"Glückwunsch, du liest per RSS! Du gehörst zu einer kleinen, feinen Gruppe, "
-"die stilvoll auf dem Laufenden bleibt."
 
-msgid "Hey there, RSS reader! You’re cool. Keep being awesome! 😎"
-msgstr "Hey, RSS-Fan! Du bist cool. Bleib einfach großartig! 😎"
-
-msgid ""
-"Hey there, RSS reader! You’re one of a special few, choosing this old-school "
-"yet awesome way of staying informed. Kudos!"
-msgstr ""
-"Hey, RSS-Fan! Du gehörst zu den wenigen Besonderen, die diesen altbewährten "
-"und trotzdem großartigen Weg wählen, um informiert zu bleiben. Hut ab!"
-
-msgid "Published:"
-msgstr "Veröffentlicht:"
-
-msgid "RSS feed icon"
-msgstr "RSS-Feed-Symbol"
-
-msgid ""
-"RSS readers like you are the secret sauce of the internet. Keep rocking and "
-"staying informed!"
-msgstr ""
-"RSS-Fans wie du sind die Geheimzutat des Internets. Bleib großartig und "
-"bestens informiert!"
-
-msgid ""
-"RSS readers like you are the unsung heroes of the internet. Keep up the good "
-"work!"
-msgstr ""
-"RSS-Fans wie du sind die unbesungenen Heldinnen und Helden des Internets. "
-"Weiter so!"
-
-msgid "Recent Items"
-msgstr "Neueste Einträge"
-
+#. Description of the plugin
+#: pretty-feeds.php
 msgid ""
 "Styles an RSS/Atom feed, making it friendly for humans viewers, and adds a "
 "link to aboutfeeds.com for new user onboarding."
@@ -70,6 +34,17 @@ msgstr ""
 "und Besucher und ergänzt einen Link zu aboutfeeds.com für den Einstieg neuer "
 "Nutzerinnen und Nutzer."
 
+#. Author of the plugin
+#: pretty-feeds.php
+msgid "Matthias Pfefferle"
+msgstr ""
+
+#. Author URI of the plugin
+#: pretty-feeds.php
+msgid "https://notiz.blog/"
+msgstr ""
+
+#: pretty-feeds.php:154
 msgid ""
 "Thanks for reading this post via RSS. RSS is great, and you’re great for "
 "using it. ♥️"
@@ -77,19 +52,39 @@ msgstr ""
 "Danke, dass du diesen Beitrag über RSS liest. RSS ist großartig – und du "
 "bist großartig, weil du es nutzt. ♥️"
 
+#: pretty-feeds.php:155
 msgid ""
-"Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. "
-"It’s free."
+"Congratulations on being an RSS reader! You are part of an elite group of "
+"people who know how to stay updated in style."
 msgstr ""
-"Besuche %1$sAbout Feeds%2$s, um mit Newsreadern und dem Abonnieren zu "
-"starten. Es ist kostenlos."
+"Glückwunsch, du liest per RSS! Du gehörst zu einer kleinen, feinen Gruppe, "
+"die stilvoll auf dem Laufenden bleibt."
 
-msgid "Visit Website"
-msgstr "Website besuchen"
+#: pretty-feeds.php:156
+msgid ""
+"Hey there, RSS reader! You’re one of a special few, choosing this old-school "
+"yet awesome way of staying informed. Kudos!"
+msgstr ""
+"Hey, RSS-Fan! Du gehörst zu den wenigen Besonderen, die diesen altbewährten "
+"und trotzdem großartigen Weg wählen, um informiert zu bleiben. Hut ab!"
 
-msgid "Web Feed"
-msgstr "Web-Feed"
+#: pretty-feeds.php:157
+msgid ""
+"You are a true RSS aficionado! While others are drowning in social media "
+"noise, you enjoy the simplicity and control of RSS. Congrats!"
+msgstr ""
+"Du bist ein echter RSS-Profi! Während andere im Lärm der sozialen Medien "
+"untergehen, genießt du die Einfachheit und Kontrolle von RSS. Glückwunsch!"
 
+#: pretty-feeds.php:158
+msgid ""
+"RSS readers like you are the unsung heroes of the internet. Keep up the good "
+"work!"
+msgstr ""
+"RSS-Fans wie du sind die unbesungenen Heldinnen und Helden des Internets. "
+"Weiter so!"
+
+#: pretty-feeds.php:159
 msgid ""
 "You are a master of efficiency! By using RSS, you save time and avoid "
 "distractions. 👏"
@@ -97,9 +92,53 @@ msgstr ""
 "Du bist ein Effizienz-Profi! Mit RSS sparst du Zeit und vermeidest "
 "Ablenkungen. 👏"
 
+#: pretty-feeds.php:160
 msgid ""
-"You are a true RSS aficionado! While others are drowning in social media "
-"noise, you enjoy the simplicity and control of RSS. Congrats!"
+"RSS readers like you are the secret sauce of the internet. Keep rocking and "
+"staying informed!"
 msgstr ""
-"Du bist ein echter RSS-Profi! Während andere im Lärm der sozialen Medien "
-"untergehen, genießt du die Einfachheit und Kontrolle von RSS. Glückwunsch!"
+"RSS-Fans wie du sind die Geheimzutat des Internets. Bleib großartig und "
+"bestens informiert!"
+
+#: pretty-feeds.php:161
+msgid "Hey there, RSS reader! You’re cool. Keep being awesome! 😎"
+msgstr "Hey, RSS-Fan! Du bist cool. Bleib einfach großartig! 😎"
+
+#: assets/js/pretty-feed.js:213
+msgid "RSS feed icon"
+msgstr "RSS-Feed-Symbol"
+
+#: assets/js/pretty-feed.js:221
+msgid "Web Feed"
+msgstr "Web-Feed"
+
+#. translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag.
+#: assets/js/pretty-feed.js:243
+msgid ""
+"<strong>Look at you, following along the old-school way.</strong> Subscribe "
+"by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s..."
+msgstr ""
+"<strong>Sieh dich an, ganz old-school unterwegs.</strong> Abonniere den "
+"Feed, indem du die URL in deinen Feed-Reader kopierst oder %1$shier%2$s "
+"klickst ..."
+
+#. translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag.
+#: assets/js/pretty-feed.js:258
+msgid ""
+"Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. "
+"It’s free."
+msgstr ""
+"Besuche %1$sAbout Feeds%2$s, um mit Newsreadern und dem Abonnieren zu "
+"starten. Es ist kostenlos."
+
+#: assets/js/pretty-feed.js:278
+msgid "Visit Website"
+msgstr "Website besuchen"
+
+#: assets/js/pretty-feed.js:283
+msgid "Recent Items"
+msgstr "Neueste Einträge"
+
+#: assets/js/pretty-feed.js:289
+msgid "Published:"
+msgstr "Veröffentlicht:"

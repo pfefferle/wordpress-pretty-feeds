@@ -1,18 +1,36 @@
 /**
- * Shows an RSS or Atom feed as a page in browsers without XSLT.
+ * Shows an RSS or Atom feed as a page in the browser.
  *
- * Browsers with XSLT apply the stylesheet of the feed and never run this
- * script. The others run it, because the feed has an XHTML script element in
- * it, and it replaces the XML with the same page as the stylesheet, see
+ * Browsers run this script when they get the feed as XML with an XHTML
+ * script element in it. It replaces the XML with HTML, see
  * https://jakearchibald.com/2025/making-xml-human-readable-without-xslt/
  *
- * The translated labels are passed in a JSON script element with the id
- * "pretty-feed-l10n".
+ * Translations are loaded the WordPress way: the JSON of the script is
+ * passed in a script element with the id "pretty-feed-translations".
  */
 ( function () {
 	const XHTML = 'http://www.w3.org/1999/xhtml';
 	const ATOM = 'http://www.w3.org/2005/Atom';
+	const DOMAIN = 'prettyfeeds';
+	const i18n = window.wp && window.wp.i18n;
+	const __ = i18n ? i18n.__ : ( text ) => text;
+	const sprintf = i18n ? i18n.sprintf : ( text, ...args ) => text.replace( /%(?:(\d)\$)?s/g, ( match, index ) => args[ index ? index - 1 : 0 ] ?? '' );
 	const feed = document.documentElement;
+	let lang = '';
+
+	// Before anything is translated.
+	const translations = document.getElementById( 'pretty-feed-translations' );
+	if ( i18n && translations ) {
+		try {
+			const data = JSON.parse( translations.textContent );
+			const localeData = data.locale_data[ DOMAIN ] || data.locale_data.messages;
+			localeData[ '' ].domain = DOMAIN;
+			lang = ( localeData[ '' ].lang || '' ).replace( '_', '-' );
+			i18n.setLocaleData( localeData, DOMAIN );
+		} catch ( error ) {
+			// Untranslated then.
+		}
+	}
 
 	/**
 	 * Creates an HTML element. Text is added as text, never as markup.
@@ -108,7 +126,6 @@
 	// Chrome ignores defer in XML documents and runs the script before the
 	// rest of the document is parsed.
 	document.addEventListener( 'DOMContentLoaded', () => {
-		const l10n = JSON.parse( document.getElementById( 'pretty-feed-l10n' ).textContent );
 		const channel = children( feed, 'channel' )[ 0 ];
 		const info = channel
 			? {
@@ -193,15 +210,15 @@
 				<path class="symbol" d="m 1,2 a 5,5 0 0 1 5,5 h 1 a 6,6 0 0 0 -6,-6 z"/>
 			</svg>
 		` ).find( ( node ) => 'svg' === node.localName );
-		icon.querySelector( 'title' ).textContent = l10n.icon;
+		icon.querySelector( 'title' ).textContent = __( 'RSS feed icon', 'prettyfeeds' );
 
 		const html = el(
 			'html',
-			{},
+			lang ? { lang } : {},
 			el(
 				'head',
 				{},
-				el( 'title', {}, info.title + ' ' + l10n.webFeed ),
+				el( 'title', {}, info.title + ' ' + __( 'Web Feed', 'prettyfeeds' ) ),
 				el( 'meta', { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' } ),
 				el( 'style', { type: 'text/css' }, style )
 			),
@@ -220,7 +237,14 @@
 							el(
 								'p',
 								{},
-								...markup( l10n.subscribe )
+								...markup(
+									sprintf(
+										/* translators: %1$s: opening link tag to subscribe to the feed; %2$s: closing link tag. */
+										__( '<strong>Look at you, following along the old-school way.</strong> Subscribe by copy-pasting the URL into your feed reader, or by clicking %1$shere%2$s...', 'prettyfeeds' ),
+										'<a class="subscribe">',
+										'</a>'
+									)
+								)
 							),
 							el(
 								'p',
@@ -228,7 +252,14 @@
 								el(
 									'small',
 									{},
-									...markup( l10n.aboutFeeds )
+									...markup(
+										sprintf(
+											/* translators: %1$s: opening link tag to aboutfeeds.com; %2$s: closing link tag. */
+											__( 'Visit %1$sAbout Feeds%2$s to get started with newsreaders and subscribing. It’s free.', 'prettyfeeds' ),
+											'<a href="https://aboutfeeds.com">',
+											'</a>'
+										)
+									)
 								)
 							)
 						),
@@ -244,18 +275,18 @@
 						image ? el( 'img', { src: image, title: info.title } ) : null,
 						el( 'h1', {}, info.title ),
 						el( 'p', {}, info.description ),
-						link( { class: 'head_link' }, info.link, l10n.visitWebsite + ' →' )
+						link( { class: 'head_link' }, info.link, __( 'Visit Website', 'prettyfeeds' ) + ' →' )
 					),
 					el(
 						'section',
 						{ class: 'recent' },
-						el( 'h2', {}, l10n.recentItems ),
+						el( 'h2', {}, __( 'Recent Items', 'prettyfeeds' ) ),
 						...info.items.map( ( item ) =>
 							el(
 								'div',
 								{ class: 'pb-5' },
 								el( 'h3', {}, link( {}, item.link, item.title ) ),
-								el( 'small', { class: 'meta' }, l10n.published + ' ' + item.date )
+								el( 'small', { class: 'meta' }, __( 'Published:', 'prettyfeeds' ) + ' ' + item.date )
 							)
 						)
 					)

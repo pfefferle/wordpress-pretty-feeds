@@ -62,16 +62,16 @@ This specific is a modified version of Dave Rupert's feed:
 					}
 					.intro .container {
 						gap: 1rem;
-						grid-template-columns:  4fr 2fr;
-						align-items: top;
+						grid-template-columns: 1fr auto;
+						align-items: center;
 					}
+					.intro svg { width: 3rem; height: auto; justify-self: end; }
 					@media (min-width: 40rem) {
 						.intro .container {
 						grid-template-columns:  4fr 1fr;
-						align-items: center;
 						}
+						.intro svg { width: 5rem; }
 					}
-					.intro svg { width: 5rem; height: auto; justify-self: end; }
 					.recent {
 						padding-block-end: var(--gap);
 					}
